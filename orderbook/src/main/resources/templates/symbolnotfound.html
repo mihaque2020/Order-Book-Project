@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title></title>
+        <link rel="stylesheet" href="https://meyerweb.com/eric/tools/css/reset/reset.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+              integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    </head>
+
+    <body>
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="/">Order Trader</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                    </li>
+
+                    <!--Dropdown for Orderbook-->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            View an Orderbook
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown" >
+                            <a class="dropdown-item" th:each="sym : ${symbols}" th:object="${sym}" th:href="@{orderbook(symbol=${sym})}" th:text="${sym}">Action</a>
+                        </div>
+                    </li>
+                    <!--End dropdown-->
+
+                    <!--Dropdown for Trade History-->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            View Trade History
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown" >
+                            <a class="dropdown-item" th:each="sym : ${symbols}" th:object="${sym}" th:href="@{tradehistory(symbol=${sym})}" th:text="${sym}">Action</a>
+                        </div>
+                    </li>
+                    <!--End dropdown-->
+
+                </ul>
+                <form class="form-inline my-2 my-lg-0" action="orderbook">
+                    <input class="form-control mr-sm-2" type="search" pattern="[a-zA-Z]{1,45}" oninvalid="this.setCustomValidity('Input must be letters in length between 1-45.')" placeholder="Search" aria-label="Search" name="symbol">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search a Symbol</button>
+                </form>
+            </div>
+        </nav>
+
+        <!-- Main Body -->
+        <div class="container-fluid">
+            <div class="row m-4 d-flex justify-content-center">
+                <div class="col-8">
+                    <main class="card rounded-0">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h2>Sorry, <span th:text="${symbol}">[SYMBOL]</span> could not be found.</h2>
+                                    <hr class="mb-4"/>
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="orderbookList">Would you like to create an orderbook for that symbol?</label>
+                                        </div>
+                                        <input type="hidden" name="symbol" th:value="${symbol}"/>
+                                        <button class="btn btn-success btn-sm" formaction="/neworderbook">Yes! Let's start trading <span th:text="${symbol}">[SYMBOL]</span>.</button>
+                                        <a class="btn btn-danger btn-sm" href="/">No, return to home page.</a>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+                </div>
+            </div>
+        </div>
+
+
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+                integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+                integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+                integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+    </body>
+
+</html>
