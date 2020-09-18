@@ -1,0 +1,3 @@
+transactionId,buyOrderId,sellOrderId,finalTime,finalPrice,amount,finalSymbol
+1,1,11,2020-01-01T12:00:05,576.45,80,GOOG
+2,1,12,2020-01-01T12:00:10,576.45,100,GOOG
